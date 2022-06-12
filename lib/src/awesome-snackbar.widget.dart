@@ -5,18 +5,18 @@ class AwesomeSnackbar {
     required BuildContext context,
     required Color primaryColor,
     required String title,
+    required Color backgroundColor,
     String? subTitle,
     String? actionLabel,
-    required TextStyle titleTextstyle,
+    TextStyle? titleTextstyle,
     TextStyle? subtitleTextstyle,
-    required TextStyle actionLabelTextstyle,
+    TextStyle? actionLabelTextstyle,
     Function? onActionTap,
-    required IconData iconData,
+    IconData? iconData,
     double? height,
     double? width,
     double? iconAvatarRadius,
-    required Color backgroundColor,
-    required Color? iconColor,
+    Color? iconColor,
     Duration? duration,
     DismissDirection? direction,
   }) {
@@ -33,24 +33,28 @@ class AwesomeSnackbar {
             child: Row(
               children: [
                 Container(width: 20, color: primaryColor),
-                const SizedBox(width: 20),
-                CircleAvatar(
-                    radius: iconAvatarRadius ?? 20,
-                    backgroundColor: primaryColor,
-                    child: Center(
-                        child:
-                            Icon(iconData, color: iconColor ?? Colors.white))),
+                if (iconData != null) const SizedBox(width: 20),
+                if (iconData != null)
+                  CircleAvatar(
+                      radius: iconAvatarRadius ?? 20,
+                      backgroundColor: primaryColor,
+                      child: Center(
+                          child: Icon(iconData,
+                              color: iconColor ?? Colors.white))),
                 const SizedBox(width: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title,
-                        overflow: TextOverflow.ellipsis, style: titleTextstyle),
+                        overflow: TextOverflow.ellipsis,
+                        style: titleTextstyle ??
+                            TextStyle(fontSize: 16, color: Colors.white)),
                     if (subTitle != null)
                       Text(subTitle,
                           overflow: TextOverflow.ellipsis,
-                          style: subtitleTextstyle)
+                          style: subtitleTextstyle ??
+                              TextStyle(fontSize: 12, color: Colors.white))
                   ],
                 ),
                 const Spacer(),
@@ -59,7 +63,9 @@ class AwesomeSnackbar {
                       onPressed: () {
                         onActionTap ?? null;
                       },
-                      child: Text(actionLabel, style: actionLabelTextstyle))
+                      child: Text(actionLabel,
+                          style: actionLabelTextstyle ??
+                              TextStyle(fontSize: 10, color: primaryColor)))
               ],
             ),
             height: height ?? 70,

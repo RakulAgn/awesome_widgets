@@ -1,6 +1,6 @@
 name: awesome_widgets
 description: Custom flutter widgets for awesome projects and apps.
-version: 0.0.5
+version: 0.0.6
 repository: https://github.com/abhishh1/awesome_widgets
 
 environment:
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sizer:
 
 dev_dependencies:
   flutter_test:
